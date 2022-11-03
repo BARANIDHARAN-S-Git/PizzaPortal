@@ -50,7 +50,7 @@ namespace PizzaPotal
 
 
             pizzadetails p5 = new pizzadetails();
-            p5.PizzaId = 5;
+            p5.PizzaId = 6;
             p5.pizzaName = "ButterCornPizza";
             p5.price = 100;
             p5.rating = 8;

@@ -1,6 +1,12 @@
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\PizzaPotal.exe
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\NUnit3.TestAdapter.dll
+C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\NUnit3.TestAdapter.pdb
+C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\nunit.engine.dll
+C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\nunit.engine.api.dll
+C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\nunit.engine.core.dll
+C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\testcentric.engine.metadata.dll
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\PizzaPotal.dll
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\PizzaPotal.deps.json
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\PizzaPotal.runtimeconfig.json
@@ -48,6 +54,7 @@ C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\NuGet.Packaging.dll
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\NuGet.ProjectModel.dll
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\NuGet.Protocol.dll
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\NuGet.Versioning.dll
+C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\nunit.framework.dll
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\System.Composition.AttributedModel.dll
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\System.Composition.Convention.dll
 C:\newvs\PizzaPotal\PizzaPotal\obj\Release\net6.0\PubTmp\Out\System.Composition.Hosting.dll
