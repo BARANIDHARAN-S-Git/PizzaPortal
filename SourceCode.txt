@@ -1,0 +1,368 @@
+GithubLink:https://github.com/BARANIDHARAN-S-Git/PizzaPortal
+------------------------------------PizzaController.cs-----------------------------
+using Microsoft.AspNetCore.Mvc;
+using PizzaPotal.Models;
+
+namespace PizzaPotal.Controllers
+{
+    public class PizzaController : Controller
+    {
+        
+     
+        static List<Checkoutdetails>check=new List<Checkoutdetails>();
+        List<pizzadetails> pizza;
+        public PizzaController()
+        {
+
+             pizzatype a = new pizzatype();
+             a.add();
+             pizza = a.pizza;
+
+        }
+        
+        public IActionResult Index()
+        {
+           
+            return View(pizza);
+        }
+
+        public IActionResult Addtocart(int id)
+        {
+            var found = pizza.Find(a => a.PizzaId == id);
+            TempData["pid"] = id;
+
+            return View(found);
+        }
+
+        [HttpPost]
+        public IActionResult Addtocart(IFormCollection collection)
+
+        {
+
+
+            Checkoutdetails c = new Checkoutdetails();
+
+            int id = Convert.ToInt32(TempData["pid"]);
+            c.Quantity = Convert.ToInt32(Request.Form["qnty"]);
+            var result = pizza.Find(a => a.PizzaId == id);
+            c.ProductId = result.PizzaId;
+            c.ProductName = result.pizzaName;
+            c.TotalPrice = result.price * c.Quantity;
+            check.Add(c);
+
+
+            return RedirectToAction("CheckOut");
+        }
+
+        public IActionResult CheckOut()
+        {
+            return View(check);
+            
+        }
+    }
+}
+---------------------------------Checkoutdetails.cs---------------------------
+namespace PizzaPotal.Models
+{
+    
+    public class Checkoutdetails
+    {
+        public int ProductId { get; set; }
+
+        public string ProductName { get; set; }
+
+        public int Quantity { get; set; }
+
+        public double TotalPrice { get; set; }
+
+     }
+}
+-------------------------------pizzadetails.cs--------------------------
+namespace PizzaPotal.Models
+{
+    public class pizzadetails
+    {
+        public int PizzaId { get; set; }    
+        
+        public string pizzaName { get; set; }
+
+        public int price { get; set; }
+
+        public float rating { get; set; }
+    }
+}
+-------------------------------------Addtocart.cshtml--------------------------
+@model PizzaPotal.Models.pizzadetails
+
+@{
+    ViewData["Title"] = "Addtocart";
+}
+
+
+
+<div>
+    <h4>pizzadetails</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PizzaId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PizzaId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.pizzaName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.pizzaName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.price)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.rating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.rating)
+        </dd>
+    </dl>
+</div>
+<form asp-action="Addtocart">
+    <label for="qnty">
+        Quantity:
+    </label>
+    <input type="number" id="qnty" name="qnty" />
+    
+    <button type="submit" value="submit" name="submit">Submit</button>
+</form>
+------------------------------CheckOut.cshtml----------------------------------
+@model IEnumerable<PizzaPotal.Models.Checkoutdetails>
+
+@{
+    ViewData["Title"] = "CheckOut";
+}
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>
+
+-------------------------------------Index.cshtml-------------------------
+@model IEnumerable<PizzaPotal.Models.pizzadetails>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Joe's Pizza Portal</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PizzaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pizzaName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PizzaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pizzaName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rating)
+            </td>
+            <td>
+              
+
+                    @Html.ActionLink("Addtocart", "Addtocart", new { id=item.PizzaId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+----------------------------pizzatype.cs---------------------------
+using PizzaPotal.Models;
+
+namespace PizzaPotal
+{
+    
+    public class pizzatype
+    {
+        public List<pizzadetails>pizza=new List<pizzadetails>();
+        
+        public void add()
+        {
+            
+            pizzadetails p = new pizzadetails();
+            p.PizzaId = 1;
+            p.pizzaName = "CornPizza";
+            p.price = 120;
+            p.rating = 7;
+            pizza.Add(p);
+
+            pizzadetails p1 = new pizzadetails();
+            p1.PizzaId = 2;
+            p1.pizzaName = "OnionPizza";
+            p1.price = 100;
+            p1.rating = 5;
+            pizza.Add(p1);
+
+
+            pizzadetails p2 = new pizzadetails();
+            p2.PizzaId = 3;
+            p2.pizzaName = "SpicyPizza";
+            p2.price = 80;
+            p2.rating = 8;
+            pizza.Add(p2);
+
+
+            pizzadetails p3 = new pizzadetails();
+            p3.PizzaId = 4;
+            p3.pizzaName = "PotatoPizza";
+            p3.price = 70;
+            p3.rating = 9;
+            pizza.Add(p3);
+
+
+            pizzadetails p4 = new pizzadetails();
+            p4.PizzaId = 5;
+            p4.pizzaName = "CheesyPizza";
+            p4.price = 60;
+            p4.rating = 6;
+            pizza.Add(p4);
+
+
+            pizzadetails p5 = new pizzadetails();
+            p5.PizzaId = 6;
+            p5.pizzaName = "ButterCornPizza";
+            p5.price = 100;
+            p5.rating = 8;
+            pizza.Add(p5);
+
+
+
+        }
+    }
+}
+
+----------------------------Program.cs------------------------------
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();
+----------------------------------test.cs--------------------------------
+using NUnit.Framework.Internal.Execution;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NUnit.Framework;
+using PizzaPotal;
+using PizzaPotal.Models;
+
+namespace Test
+{
+    [TestFixture]
+    public class test
+    {
+        pizzatype p = null;
+        public test()
+        {
+            p = new pizzatype();
+        }
+
+        [TestCase(ExpectedResult =6)]
+        [TestCase(ExpectedResult =7)]
+        public int check(int qnty)
+        {
+
+            p.add();
+            return (p.pizza.Count);
+            
+        }
+    }
+}
