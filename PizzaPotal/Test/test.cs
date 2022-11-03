@@ -21,7 +21,7 @@ namespace Test
 
         [TestCase(ExpectedResult =6)]
         [TestCase(ExpectedResult =7)]
-        public int check(int qnty)
+        public int check()
         {
 
             p.add();
